@@ -72,3 +72,32 @@
   font-size: 0.95rem;
   max-width: 300px;
 }
+
+@media (max-width: 767px) {
+  .perfumers-section {
+    padding: 4rem 0;
+  }
+  
+  .perfumers-header h2 {
+    font-size: 2.5rem;
+  }
+
+  .perfumers-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1.5rem;
+    scrollbar-width: none; /* Firefox */
+    gap: 1.5rem;
+  }
+  
+  .perfumers-grid::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  
+  .perfumer-card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+}
