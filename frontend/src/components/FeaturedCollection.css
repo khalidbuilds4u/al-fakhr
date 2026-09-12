@@ -37,6 +37,7 @@
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  flex: 1;
 }
 
 .product-image-wrap {

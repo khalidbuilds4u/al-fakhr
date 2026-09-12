@@ -1,11 +1,118 @@
 "use client";
 
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useCart } from '@/context/CartContext';
 import { products } from '@/data/products';
 import './FeaturedCollection.css';
+
+// The 3D Interactive Card Component
+function TiltCard({ product, index, addToCart }: any) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Motion values to track mouse position
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Smooth out the movement with physics springs
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  // Map the mouse coordinates to rotation angles (max tilt is 12 degrees)
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    
+    // Calculate mouse position relative to the card's center (from -0.5 to 0.5)
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    // Reset back to center when mouse leaves
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      style={{ perspective: 1200, display: 'flex', flexDirection: 'column' }} // Gives depth to the 3D transforms
+      className="tilt-card-wrapper"
+    >
+      <motion.div 
+        ref={ref}
+        className="product-card"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+      >
+        <div className="product-image-wrap" style={{ transform: "translateZ(30px)" }}>
+            <Image 
+              src={product.image} 
+              alt={product.name}
+              fill
+              className="product-img"
+            />
+            {product.hoverImage && (
+              <div className="hover-ad-state">
+                <img 
+                  src={product.hoverImage}
+                  alt={`${product.name} Lifestyle`}
+                  className="hover-img-bg"
+                />
+                <div className="hover-ad-overlay">
+                  <span className="hover-ad-type">{product.type}</span>
+                  <h4 className="hover-ad-name">{product.name}</h4>
+                  <div className="hover-ad-divider"></div>
+                  <p className="hover-ad-notes">{product.notes.split(',').join(' | ')}</p>
+                </div>
+              </div>
+            )}
+        </div>
+        <div className="product-info" style={{ transform: "translateZ(50px)" }}>
+          <Link href={`/products/${product.slug}`} style={{textDecoration: 'none', color: 'inherit'}}>
+            <h3>{product.name}</h3>
+          </Link>
+          <p className="product-type">{product.type}</p>
+          <p className="product-notes">{product.notes}</p>
+          <p className="product-desc-sm">{product.desc}</p>
+          <div className="quick-add">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                addToCart({
+                  id: product.id,
+                  name: product.name,
+                  type: product.type,
+                  price: product.price,
+                  image: product.image
+                });
+              }}
+            >
+              ADD TO CART - ${product.price}
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function FeaturedCollection() {
   const { addToCart } = useCart();
@@ -20,59 +127,12 @@ export default function FeaturedCollection() {
 
         <div className="product-grid">
           {products.map((product, index) => (
-            <motion.div 
+            <TiltCard 
               key={product.id} 
-              className="product-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="product-image-wrap">
-                  <Image 
-                    src={product.image} 
-                    alt={product.name}
-                    fill
-                    className="product-img"
-                  />
-                  {product.hoverImage && (
-                    <div className="hover-ad-state">
-                      <img 
-                        src={product.hoverImage}
-                        alt={`${product.name} Lifestyle`}
-                        className="hover-img-bg"
-                      />
-                      <div className="hover-ad-overlay">
-                        <span className="hover-ad-type">{product.type}</span>
-                        <h4 className="hover-ad-name">{product.name}</h4>
-                        <div className="hover-ad-divider"></div>
-                        <p className="hover-ad-notes">{product.notes.split(',').join(' | ')}</p>
-                      </div>
-                    </div>
-                  )}
-              </div>
-              <div className="product-info">
-                <Link href={`/products/${product.slug}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                  <h3>{product.name}</h3>
-                </Link>
-                <p className="product-type">{product.type}</p>
-                <p className="product-notes">{product.notes}</p>
-                <p className="product-desc-sm">{product.desc}</p>
-                <div className="quick-add">
-                  <button 
-                    onClick={() => addToCart({
-                      id: product.id,
-                      name: product.name,
-                      type: product.type,
-                      price: product.price,
-                      image: product.image
-                    })}
-                  >
-                    ADD TO CART - ${product.price}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+              product={product} 
+              index={index} 
+              addToCart={addToCart} 
+            />
           ))}
         </div>
         
