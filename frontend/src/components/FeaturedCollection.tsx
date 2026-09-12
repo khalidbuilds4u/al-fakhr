@@ -29,7 +29,6 @@ export default function FeaturedCollection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="product-image-wrap">
-                <Link href={`/products/${product.slug}`}>
                   <Image 
                     src={product.image} 
                     alt={product.name}
@@ -51,7 +50,6 @@ export default function FeaturedCollection() {
                       </div>
                     </div>
                   )}
-                </Link>
                 <div className="quick-add">
                   <button 
                     onClick={() => addToCart({

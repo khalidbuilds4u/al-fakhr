@@ -146,6 +146,7 @@
   display: flex;
   justify-content: center;
   border-top: 1px solid var(--accent-gold);
+  z-index: 10;
 }
 
 .product-card:hover .quick-add {
