@@ -111,7 +111,6 @@ function TiltCard({ product, index, addToCart }: any) {
           </div>
         </div>
       </motion.div>
-    </motion.div>
   );
 }
 
