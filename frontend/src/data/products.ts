@@ -31,7 +31,7 @@ export const products: Product[] = [
     desc: 'The purest agarwood essence for a dark, commanding presence.',
     longDesc: 'Sourced from the oldest agarwood forests of Assam, our Dehn Al Oudh is a deeply meditative and intensely animalic fragrance. It opens with an unapologetic burst of raw, smoky wood before settling into a warm, resinous leather finish that lasts for days on the skin. This is the crown jewel of traditional Middle Eastern perfumery.',
     image: '/dehn_al_oudh.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1583524505974-6facd53f4597?auto=format&fit=crop&w=800&q=80', // Dark moody perfume
+    hoverImage: 'https://images.unsplash.com/photo-1608528577891-eb05f9d6a2f0?auto=format&fit=crop&w=800&q=80', // Safe amber bottle
     price: 150,
     olfactoryPyramid: {
       top: 'Aged Indian Agarwood, Earth',
