@@ -1,0 +1,62 @@
+:root {
+  --background: #0A221C; /* Deep Emerald Green */
+  --foreground: #FDFBF7; /* Cream / Off-White */
+  --accent-gold: #d4af37; /* Rich Gold */
+  --border: rgba(212, 175, 55, 0.2); /* Subtle Gold border */
+  --text-muted: #A3B5AE; /* Muted Green-Grey for secondary text */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0A221C;
+    --foreground: #FDFBF7;
+    --accent-gold: #d4af37;
+    --border: rgba(212, 175, 55, 0.2);
+    --text-muted: #A3B5AE;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+  font-weight: 400;
+  color: var(--accent-gold);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.min-h-screen { min-height: 100vh; }
+.w-full { width: 100%; }

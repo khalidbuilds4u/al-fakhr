@@ -1,0 +1,221 @@
+.featured-section {
+  padding: 8rem 0;
+  background-color: var(--background);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.product-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  background-color: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.product-img {
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.hover-ad-state {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hover-img-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.8s ease;
+}
+
+.hover-ad-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  background: linear-gradient(to top, rgba(10,34,28,0.98) 0%, rgba(10,34,28,0.6) 50%, transparent 100%);
+  text-align: center;
+  color: #fff;
+  transform: translateY(20px);
+  transition: transform 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hover-ad-type {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-gold);
+  margin-bottom: 0.5rem;
+}
+
+.hover-ad-name {
+  font-family: var(--font-playfair);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.hover-ad-divider {
+  width: 30px;
+  height: 1px;
+  background-color: var(--accent-gold);
+  margin: 0.5rem 0;
+}
+
+.hover-ad-notes {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.product-card:hover .hover-ad-state {
+  opacity: 1;
+}
+
+.product-card:hover .hover-img-bg {
+  transform: scale(1.05);
+}
+
+.product-card:hover .hover-ad-overlay {
+  transform: translateY(0);
+}
+
+.quick-add {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  width: 100%;
+  background: rgba(10, 34, 28, 0.9);
+  padding: 1rem;
+  transition: bottom 0.3s ease;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--accent-gold);
+}
+
+.product-card:hover .quick-add {
+  bottom: 0;
+}
+
+.quick-add button {
+  background: var(--accent-gold);
+  color: #000;
+  border: none;
+  padding: 0.8rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.quick-add button:hover {
+  background: #fff;
+}
+
+.product-info {
+  text-align: center;
+}
+
+.product-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-playfair);
+}
+
+.product-type {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+
+.product-notes {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.product-desc-sm {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.view-all-container {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.view-all-btn {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--foreground);
+  padding: 1rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.view-all-btn:hover {
+  background: var(--foreground);
+  color: var(--background);
+}

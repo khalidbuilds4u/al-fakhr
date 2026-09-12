@@ -1,0 +1,49 @@
+.usps-section {
+  padding: 5rem 0;
+  background-color: var(--background);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.usps-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .usps-inner {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.usp-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.usp-icon {
+  margin-bottom: 1.5rem;
+  color: var(--accent-gold);
+}
+
+.usp-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.usp-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
