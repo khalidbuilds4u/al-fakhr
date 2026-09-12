@@ -4,11 +4,13 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Search, User, Menu, X } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import LoginModal from './LoginModal';
 import './Navbar.css';
 
 export default function Navbar() {
   const { toggleCart, cartCount } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -34,7 +36,9 @@ export default function Navbar() {
           
           <div className="nav-right flex items-center">
             <button className="icon-btn"><Search size={20} /></button>
-            <button className="icon-btn"><User size={20} /></button>
+            <button className="icon-btn" onClick={() => setIsLoginModalOpen(true)}>
+              <User size={20} />
+            </button>
             <button className="icon-btn cart-icon-wrapper" onClick={toggleCart}>
               <ShoppingCart size={20} />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
@@ -53,6 +57,11 @@ export default function Navbar() {
           <Link href="/gifts" onClick={toggleMobileMenu}>Gift Sets</Link>
         </div>
       </header>
+
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
+      />
     </>
   );
 }
