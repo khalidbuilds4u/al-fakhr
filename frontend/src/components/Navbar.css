@@ -162,6 +162,25 @@
   }
 }
 
+@media (max-width: 480px) {
+  .nav-brand h1 {
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+  
+  .navbar .container {
+    padding: 0 1rem;
+  }
+  
+  .nav-right {
+    gap: 0.25rem;
+  }
+  
+  .icon-btn {
+    padding: 0.25rem;
+  }
+}
+
 @media (min-width: 992px) {
   .mobile-menu-btn {
     display: none;
