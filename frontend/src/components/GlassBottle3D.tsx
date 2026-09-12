@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, OrbitControls, Float, Text } from '@react-three/drei';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 
 function BottleMesh() {
@@ -35,7 +35,6 @@ function BottleMesh() {
           position={[0, 0, 0]} 
           color="#d4af37" 
           fontSize={0.35} 
-          font="https://fonts.gstatic.com/s/playfairdisplay/v30/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff" // Playfair Display
           anchorX="center" 
           anchorY="middle"
         >
@@ -82,16 +81,18 @@ export default function GlassBottle3D() {
         dpr={[1, 1.5]} 
         gl={{ powerPreference: "high-performance", antialias: false }}
       >
-        <ambientLight intensity={0.6} />
-        <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1.5} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-        
-        <Float speed={2} rotationIntensity={0.2} floatIntensity={1}>
-          <BottleMesh />
-        </Float>
+        <React.Suspense fallback={null}>
+          <ambientLight intensity={0.6} />
+          <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1.5} />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          
+          <Float speed={2} rotationIntensity={0.2} floatIntensity={1}>
+            <BottleMesh />
+          </Float>
 
-        <Environment preset="city" />
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+          <Environment preset="city" />
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        </React.Suspense>
       </Canvas>
     </div>
   );
