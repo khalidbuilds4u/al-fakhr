@@ -133,6 +133,8 @@
 
 .product-card:hover .hover-ad-overlay {
   transform: translateY(0);
+}
+
 .product-info {
   text-align: center;
   display: flex;
