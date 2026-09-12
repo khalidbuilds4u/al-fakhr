@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, OrbitControls, Float } from '@react-three/drei';
+import { Environment, OrbitControls, Float, Text } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
@@ -16,31 +16,48 @@ function BottleMesh() {
 
   return (
     <group ref={groupRef} position={[0, -1, 0]}>
-      {/* Heavy Glass Body - Optimized Physical Material */}
+      {/* Heavy Obsidian Glass Body (Extremely fast & premium looking) */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[2.2, 3, 1.2]} />
         <meshPhysicalMaterial 
-          thickness={2.5}
-          roughness={0.05}
-          transmission={1}
-          ior={1.5}
-          color="#e6f2ed"
-          transparent
+          color="#030a08" // Deep dark emerald/obsidian
+          metalness={0.8}
+          roughness={0.1}
+          clearcoat={1}
+          clearcoatRoughness={0.1}
         />
       </mesh>
 
-      {/* Internal Liquid / Core */}
-      <mesh position={[0, -0.2, 0]}>
-        <boxGeometry args={[1.7, 2.2, 0.8]} />
-        <meshPhysicalMaterial 
+      {/* Gold Label Branding */}
+      <group position={[0, 0.2, 0.61]}>
+        {/* Main Logo */}
+        <Text 
+          position={[0, 0, 0]} 
           color="#d4af37" 
-          transmission={0.5}
-          opacity={0.8}
-          transparent
-          roughness={0.1}
-          metalness={0.1}
-        />
-      </mesh>
+          fontSize={0.35} 
+          font="https://fonts.gstatic.com/s/playfairdisplay/v30/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff" // Playfair Display
+          anchorX="center" 
+          anchorY="middle"
+        >
+          AL-FAKHR
+        </Text>
+        {/* Subtitle */}
+        <Text 
+          position={[0, -0.4, 0]} 
+          color="#d4af37" 
+          fontSize={0.12} 
+          letterSpacing={0.25}
+          anchorX="center" 
+          anchorY="middle"
+        >
+          EXTRAIT DE PARFUM
+        </Text>
+        {/* Ornate Divider */}
+        <mesh position={[0, -0.2, 0]}>
+          <boxGeometry args={[0.8, 0.01, 0.01]} />
+          <meshBasicMaterial color="#d4af37" />
+        </mesh>
+      </group>
 
       {/* Gold Neck */}
       <mesh position={[0, 1.75, 0]}>
@@ -62,7 +79,7 @@ export default function GlassBottle3D() {
     <div style={{ width: '100%', height: '100%', minHeight: '600px', cursor: 'grab' }}>
       <Canvas 
         camera={{ position: [0, 0, 8], fov: 45 }} 
-        dpr={[1, 1.5]} // Limit pixel ratio to massively boost performance on retina screens
+        dpr={[1, 1.5]} 
         gl={{ powerPreference: "high-performance", antialias: false }}
       >
         <ambientLight intensity={0.6} />
