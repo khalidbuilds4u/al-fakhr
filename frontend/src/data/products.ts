@@ -31,7 +31,7 @@ export const products: Product[] = [
     desc: 'The purest agarwood essence for a dark, commanding presence.',
     longDesc: 'Sourced from the oldest agarwood forests of Assam, our Dehn Al Oudh is a deeply meditative and intensely animalic fragrance. It opens with an unapologetic burst of raw, smoky wood before settling into a warm, resinous leather finish that lasts for days on the skin. This is the crown jewel of traditional Middle Eastern perfumery.',
     image: '/dehn_al_oudh.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1608528577891-eb05f9d6a2f0?auto=format&fit=crop&w=800&q=80', // Safe amber bottle
+    hoverImage: '/hover_dehn.jpg', // AI generated dark moody perfume
     price: 150,
     olfactoryPyramid: {
       top: 'Aged Indian Agarwood, Earth',
@@ -53,7 +53,7 @@ export const products: Product[] = [
     desc: 'A vibrant emerald aura of grounding vetiver.',
     longDesc: 'Distilled using ancient copper degs, Ruh Khus (Wild Vetiver) captures the essence of cooling monsoon breezes over parched Indian earth. Its intense emerald green color is 100% natural, achieved through the traditional distillation process over a sandalwood base. It provides a grounding, deeply meditative aura.',
     image: '/real_4.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80', // Minimalist green/fresh bottle
+    hoverImage: '/hover_ruh.jpg', // AI generated green vetiver bottle
     price: 85,
     olfactoryPyramid: {
       top: 'Dewy Grass, Damp Earth',
@@ -75,7 +75,7 @@ export const products: Product[] = [
     desc: 'The deeply nostalgic scent of the first rain on parched soil.',
     longDesc: 'The ultimate scent of nostalgia. Mitti Attar captures the exact aroma of the first monsoon rain hitting sun-baked earth. Distilled from actual half-baked clay harvested from the banks of the Ganges, co-distilled into pure sandalwood oil. It is a masterpiece of olfactive storytelling.',
     image: '/real_5.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1608528577891-eb05f9d6a2f0?auto=format&fit=crop&w=800&q=80', // Amber/earthy glass bottle
+    hoverImage: '/real_4.jpg', // Fallback local image
     price: 95,
     olfactoryPyramid: {
       top: 'Ozone, Rainwater',
@@ -97,7 +97,7 @@ export const products: Product[] = [
     desc: 'A radiant, luxurious profile that commands a room.',
     longDesc: 'A devastatingly luxurious blend. We source the finest Persian saffron threads, pairing their leathery-sweet warmth with the indolic depth of night-blooming jasmine. The dry down reveals authentic ambergris and virgin cedarwood, creating a radiant halo of scent that announces your arrival.',
     image: '/real_1.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1595425970377-c9703bc48b22?auto=format&fit=crop&w=800&q=80', // Golden luxury bottle
+    hoverImage: '/real_3.jpg', // Fallback local image
     price: 210,
     olfactoryPyramid: {
       top: 'Persian Saffron, Bitter Almond',
@@ -119,7 +119,7 @@ export const products: Product[] = [
     desc: 'Bold, smoky, and irresistibly seductive.',
     longDesc: 'An uncompromising study in contrasts. The harsh, primal scent of raw black leather is wrapped in the velvet embrace of jammy Damask Rose and tart raspberry. It is simultaneously tough and romantic, smoky and sweet—an Extrait de Parfum for the boldly confident.',
     image: '/real_2.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80', // Dark rose/leather aesthetic bottle
+    hoverImage: '/hover_tuscan.jpg', // AI generated black leather rose bottle
     price: 245,
     olfactoryPyramid: {
       top: 'Raspberry, Saffron, Thyme',
@@ -141,7 +141,7 @@ export const products: Product[] = [
     desc: 'A sharp, fresh, and aggressively confident signature.',
     longDesc: 'A tribute to classical masculine elegance, reimagined at an Extrait concentration. A blindingly bright opening of Calabrian bergamot and crisp apple gives way to a smoky heart of birch tar and patchouli. It dries down to an intoxicating, mossy masculine finish that lasts from dawn until dusk.',
     image: '/real_3.jpg',
-    hoverImage: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80', // Crisp, clear glass bottle
+    hoverImage: '/real_5.jpg', // Fallback local image
     price: 180,
     olfactoryPyramid: {
       top: 'Calabrian Bergamot, Blackcurrant, Apple, Pineapple',

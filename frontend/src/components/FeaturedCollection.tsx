@@ -48,21 +48,21 @@ function TiltCard({ product, index, addToCart }: any) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      style={{ perspective: 1200, display: 'flex', flexDirection: 'column' }} // Gives depth to the 3D transforms
-      className="tilt-card-wrapper"
+      className="product-card"
     >
       <motion.div 
         ref={ref}
-        className="product-card"
+        className="product-image-wrap"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
+          perspective: 1000,
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
         }}
       >
-        <div className="product-image-wrap" style={{ transform: "translateZ(30px)" }}>
+        <div style={{ transform: "translateZ(30px)", width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}>
             <Image 
               src={product.image} 
               alt={product.name}
@@ -85,7 +85,8 @@ function TiltCard({ product, index, addToCart }: any) {
               </div>
             )}
         </div>
-        <div className="product-info" style={{ transform: "translateZ(50px)" }}>
+      </motion.div>
+      <div className="product-info">
           <Link href={`/products/${product.slug}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <h3>{product.name}</h3>
           </Link>
