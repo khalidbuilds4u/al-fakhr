@@ -136,37 +136,28 @@
 }
 
 .quick-add {
-  position: absolute;
-  bottom: -60px;
-  left: 0;
+  margin-top: 1.5rem;
   width: 100%;
-  background: rgba(10, 34, 28, 0.9);
-  padding: 1rem;
-  transition: bottom 0.3s ease;
   display: flex;
   justify-content: center;
-  border-top: 1px solid var(--accent-gold);
-  z-index: 10;
-}
-
-.product-card:hover .quick-add {
-  bottom: 0;
 }
 
 .quick-add button {
   background: var(--accent-gold);
   color: #000;
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 1rem 2rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   width: 100%;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .quick-add button:hover {
   background: #fff;
+  color: #000;
 }
 
 .product-info {

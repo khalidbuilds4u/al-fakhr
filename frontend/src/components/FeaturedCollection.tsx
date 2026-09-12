@@ -50,6 +50,14 @@ export default function FeaturedCollection() {
                       </div>
                     </div>
                   )}
+              </div>
+              <div className="product-info">
+                <Link href={`/products/${product.slug}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                  <h3>{product.name}</h3>
+                </Link>
+                <p className="product-type">{product.type}</p>
+                <p className="product-notes">{product.notes}</p>
+                <p className="product-desc-sm">{product.desc}</p>
                 <div className="quick-add">
                   <button 
                     onClick={() => addToCart({
@@ -63,14 +71,6 @@ export default function FeaturedCollection() {
                     ADD TO CART - ${product.price}
                   </button>
                 </div>
-              </div>
-              <div className="product-info">
-                <Link href={`/products/${product.slug}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                  <h3>{product.name}</h3>
-                </Link>
-                <p className="product-type">{product.type}</p>
-                <p className="product-notes">{product.notes}</p>
-                <p className="product-desc-sm">{product.desc}</p>
               </div>
             </motion.div>
           ))}
