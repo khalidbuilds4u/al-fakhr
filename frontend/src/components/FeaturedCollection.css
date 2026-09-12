@@ -133,35 +133,11 @@
 
 .product-card:hover .hover-ad-overlay {
   transform: translateY(0);
-}
-
-.quick-add {
-  margin-top: 1.5rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.quick-add button {
-  background: var(--accent-gold);
-  color: #000;
-  border: none;
-  padding: 1rem 2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.85rem;
-  font-weight: 500;
-  width: 100%;
-  transition: background 0.3s, color 0.3s;
-}
-
-.quick-add button:hover {
-  background: #fff;
-  color: #000;
-}
-
 .product-info {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Take up remaining space in the card */
 }
 
 .product-info h3 {
@@ -189,6 +165,32 @@
   font-size: 0.85rem;
   color: var(--text-muted);
   font-style: italic;
+  margin-bottom: 1.5rem; /* Add some space before the button */
+}
+
+.quick-add {
+  margin-top: auto; /* Push the button to the bottom */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.quick-add button {
+  background: var(--accent-gold);
+  color: #000;
+  border: none;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  font-weight: 500;
+  width: 100%;
+  transition: background 0.3s, color 0.3s;
+}
+
+.quick-add button:hover {
+  background: #fff;
+  color: #000;
 }
 
 .view-all-container {
