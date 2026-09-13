@@ -188,24 +188,47 @@
 }
 
 @media (max-width: 767px) {
+  .hero-section {
+    align-items: flex-end; /* Push content to bottom so product is visible above */
+    padding-bottom: 4rem;
+  }
+
   .hero-text-box.align-left,
   .hero-text-box.align-right {
     text-align: center;
     align-items: center;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
   }
   
+  /* Much lighter overlay so the product visuals show through clearly */
   .hero-overlay.align-left,
   .hero-overlay.align-right {
-    background: linear-gradient(to top, rgba(10, 34, 28, 0.95) 0%, rgba(10, 34, 28, 0.4) 100%);
+    background: linear-gradient(
+      to top, 
+      rgba(10, 34, 28, 0.92) 0%,    /* Solid at the very bottom where text sits */
+      rgba(10, 34, 28, 0.4) 40%,     /* Fades quickly */
+      rgba(10, 34, 28, 0.05) 70%,    /* Nearly transparent in the middle where the product is */
+      rgba(10, 34, 28, 0.15) 100%    /* Slight tint at top */
+    );
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-size: 3.2rem;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    max-width: 320px;
   }
 
   .hero-media {
     object-position: var(--bg-pos-mobile, center);
+    opacity: 1; /* Full opacity on mobile so the product is crystal clear */
+  }
+
+  .hero-cta {
+    padding: 1rem 2.5rem;
   }
 }
