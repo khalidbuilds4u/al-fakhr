@@ -133,15 +133,18 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.product-card:hover .hover-ad-state {
+.product-card:hover .hover-ad-state,
+.product-card.mobile-hover-active .hover-ad-state {
   opacity: 1;
 }
 
-.product-card:hover .hover-img-bg {
+.product-card:hover .hover-img-bg,
+.product-card.mobile-hover-active .hover-img-bg {
   transform: scale(1.05);
 }
 
-.product-card:hover .hover-ad-overlay {
+.product-card:hover .hover-ad-overlay,
+.product-card.mobile-hover-active .hover-ad-overlay {
   transform: translateY(0);
 }
 

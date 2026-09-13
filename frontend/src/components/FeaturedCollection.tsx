@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -10,6 +10,7 @@ import './FeaturedCollection.css';
 
 // The 3D Interactive Card Component
 function TiltCard({ product, index, addToCart }: any) {
+  const [isMobileHovered, setIsMobileHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   // Motion values to track mouse position
@@ -17,23 +18,20 @@ function TiltCard({ product, index, addToCart }: any) {
   const y = useMotionValue(0);
 
   // Smooth out the movement with physics springs
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  const springConfig = { stiffness: 300, damping: 30, bounce: 0 };
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), springConfig);
 
-  // Map the mouse coordinates to rotation angles (max tilt is 12 degrees)
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
     
-    // Calculate mouse position relative to the card's center (from -0.5 to 0.5)
-    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
-    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
-    
-    x.set(xPct);
-    y.set(yPct);
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
   };
 
   const handleMouseLeave = () => {
@@ -42,24 +40,33 @@ function TiltCard({ product, index, addToCart }: any) {
     y.set(0);
   };
 
+  const toggleMobileHover = () => {
+    // Only apply explicit toggle behavior on touch devices
+    if (window.matchMedia("(hover: none)").matches) {
+      setIsMobileHovered(!isMobileHovered);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="product-card"
+      className={`product-card ${isMobileHovered ? 'mobile-hover-active' : ''}`}
     >
       <motion.div 
         ref={ref}
         className="product-image-wrap"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onClick={toggleMobileHover}
         style={{
           perspective: 1000,
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
+          cursor: 'pointer'
         }}
       >
         <div style={{ transform: "translateZ(30px)", width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}>
