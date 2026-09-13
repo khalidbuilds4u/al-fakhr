@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 import GlassBottle3D from './GlassBottle3D';
 import './BrandStory.css';
@@ -37,18 +37,30 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
-              onClick={toggleImage}
-              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              style={{ position: 'relative' }}
             >
-              <motion.img 
-                key={imageIndex} /* Key forces a re-render/re-animation when image changes */
-                initial={{ opacity: 0.5 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                src={images[imageIndex]} 
-                alt="AL-FAKHR Heritage Perfume" 
-                className="heritage-animated-img"
+              {/* Invisible clickable overlay to capture all taps reliably */}
+              <div 
+                onClick={toggleImage} 
+                style={{ position: 'absolute', inset: 0, zIndex: 10, cursor: 'pointer' }}
+                aria-label="Toggle Image"
+                role="button"
               />
+              
+              <AnimatePresence mode="wait">
+                <motion.img 
+                  key={imageIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  src={images[imageIndex]} 
+                  alt="AL-FAKHR Heritage Perfume" 
+                  className="heritage-animated-img"
+                  style={{ position: 'absolute', top: 0, left: 0 }}
+                />
+              </AnimatePresence>
+              
               {/* Gold shimmer light sweep */}
               <div className="heritage-shimmer"></div>
               {/* Vignette overlay */}
