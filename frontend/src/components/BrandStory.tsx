@@ -31,31 +31,48 @@ export default function BrandStory() {
         >
           {isMobile ? (
             /* Animated image presentation on mobile — lightweight but cinematic */
-            <motion.div
-              className="mobile-heritage-visual"
-              initial={{ opacity: 0, scale: 1.15 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
+            <div
+              className="mobile-heritage-visual-wrapper"
+              style={{ position: 'relative', width: '100%', height: '100%' }}
             >
-              <img 
-                src={images[imageIndex]} 
-                alt="AL-FAKHR Heritage Perfume" 
-                className="heritage-animated-img"
+              {/* Stationary invisible button overlay guarantees click capture */}
+              <button 
                 onClick={toggleImage}
-                style={{ 
-                  cursor: 'pointer', 
-                  transition: 'opacity 0.4s ease-in-out',
-                  position: 'relative',
-                  zIndex: 10 /* Ensure image itself catches clicks above shimmer/vignette */
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  zIndex: 50,
+                  opacity: 0,
+                  cursor: 'pointer',
+                  border: 'none',
+                  background: 'transparent'
                 }}
+                aria-label="Toggle perfume image"
               />
-              
-              {/* Gold shimmer light sweep */}
-              <div className="heritage-shimmer"></div>
-              {/* Vignette overlay */}
-              <div className="heritage-vignette"></div>
-            </motion.div>
+
+              <motion.div
+                className="mobile-heritage-visual"
+                initial={{ opacity: 0, scale: 1.15 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
+                style={{ width: '100%', height: '100%' }}
+              >
+                <img 
+                  src={images[imageIndex]} 
+                  alt="AL-FAKHR Heritage Perfume" 
+                  className="heritage-animated-img"
+                  style={{ transition: 'opacity 0.4s ease-in-out' }}
+                />
+                
+                {/* Gold shimmer light sweep */}
+                <div className="heritage-shimmer"></div>
+                {/* Vignette overlay */}
+                <div className="heritage-vignette"></div>
+              </motion.div>
+            </div>
           ) : (
             <GlassBottle3D />
           )}
