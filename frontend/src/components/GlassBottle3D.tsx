@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, OrbitControls, Float, Text } from '@react-three/drei';
+import { Environment, OrbitControls, Float, Text, RoundedBox, MeshTransmissionMaterial, ContactShadows } from '@react-three/drei';
 import React, { useRef } from 'react';
 import * as THREE from 'three';
 
@@ -17,46 +17,44 @@ function BottleMesh() {
   return (
     <group ref={groupRef} position={[0, -1, 0]}>
       
-      {/* 
-        ROBUST GLASS: 
-        Instead of 'transmission' which fails on some WebGL implementations (rendering as opaque gray), 
-        we use standard transparency with high envMapIntensity and clearcoat. This guarantees it looks like glass everywhere.
-      */}
-      
-      {/* Outer Glass Body */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[2.4, 3.0, 1.0]} />
-        <meshPhysicalMaterial 
-          color="#ffffff"
-          metalness={0.1}
-          roughness={0.05}
-          transparent={true}
-          opacity={0.25}       // Low opacity to see the liquid inside
-          envMapIntensity={2}  // High reflection of the environment
-          clearcoat={1}
-          clearcoatRoughness={0.05}
-          depthWrite={true}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-
       {/* Inner Liquid (Perfume) */}
       <mesh position={[0, -0.15, 0]}>
-        {/* Slightly smaller than the glass */}
-        <boxGeometry args={[2.2, 2.6, 0.8]} />
-        <meshPhysicalMaterial 
-          color="#dca838"      // Golden amber Chanel N5 liquid
-          metalness={0}
-          roughness={0.1}
-          transparent={true}
-          opacity={0.85}       // High opacity so it looks like dense liquid
-          depthWrite={false}   // Prevent z-fighting with the outer glass
-        />
+        {/* Using RoundedBox to match the outer glass shape, slightly smaller */}
+        <RoundedBox args={[2.2, 2.6, 0.8]} radius={0.08} smoothness={4}>
+          <meshPhysicalMaterial 
+            color="#dca838"      // Golden amber Chanel N5 liquid
+            metalness={0}
+            roughness={0.1}
+            transparent={true}
+            opacity={0.85}       // Dense liquid
+            depthWrite={false}   // Prevent z-fighting with the outer glass
+          />
+        </RoundedBox>
+      </mesh>
+
+      {/* Outer Thick Glass Body (Photorealistic) */}
+      <mesh position={[0, 0, 0]}>
+        <RoundedBox args={[2.6, 3.1, 1.1]} radius={0.15} smoothness={8}>
+          {/* Advanced Physical Transmission Shader */}
+          <MeshTransmissionMaterial 
+            backside={true}
+            samples={4}
+            thickness={1.5}
+            chromaticAberration={0.025}
+            anisotropy={0.1}
+            distortion={0}
+            distortionScale={0}
+            temporalDistortion={0}
+            ior={1.52}
+            color="#ffffff"
+            roughness={0.05}
+            clearcoat={1}
+          />
+        </RoundedBox>
       </mesh>
 
       {/* The Iconic Square Label */}
-      {/* Placed EXACTLY on the glass surface (depth 1.0 / 2 = 0.5) + tiny offset to prevent z-fighting */}
-      <group position={[0, -0.1, 0.501]}>
+      <group position={[0, -0.1, 0.551]}>
         <mesh>
           <planeGeometry args={[1.3, 1.3]} />
           <meshStandardMaterial color="#fafafa" roughness={0.9} />
@@ -90,18 +88,15 @@ function BottleMesh() {
 
       {/* Cap - Wide faceted transparent glass stopper */}
       <mesh position={[0, 2.2, 0]}>
-        {/* Adjusted position and height to sit flush on the neck */}
         <cylinderGeometry args={[0.9, 0.8, 0.6, 8]} />
-        <meshPhysicalMaterial 
-          color="#ffffff"
-          metalness={0.1}
-          roughness={0.05}
-          transparent={true}
-          opacity={0.4}
-          envMapIntensity={2}
-          clearcoat={1}
-          clearcoatRoughness={0.05}
-          flatShading={true} 
+        <MeshTransmissionMaterial 
+            backside={true}
+            samples={4}
+            thickness={1.5}
+            chromaticAberration={0.05}
+            ior={1.52}
+            color="#ffffff"
+            roughness={0.05}
         />
       </mesh>
     </group>
@@ -125,6 +120,9 @@ export default function GlassBottle3D() {
           <Float speed={2} rotationIntensity={0.2} floatIntensity={1}>
             <BottleMesh />
           </Float>
+
+          {/* Ground shadow to add weight and realism */}
+          <ContactShadows position={[0, -2.5, 0]} opacity={0.5} scale={10} blur={2} far={4} />
 
           <Environment preset="city" />
           <OrbitControls 
