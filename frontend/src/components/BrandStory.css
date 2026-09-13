@@ -196,5 +196,6 @@
   }
   .story-image-wrap {
     min-height: 400px;
+    pointer-events: none; /* Let touch scroll pass through the 3D canvas */
   }
 }
