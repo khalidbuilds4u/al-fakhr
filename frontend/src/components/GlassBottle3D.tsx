@@ -75,11 +75,12 @@ function BottleMesh() {
 
 export default function GlassBottle3D() {
   return (
-    <div style={{ width: '100%', height: '100%', minHeight: '600px', cursor: 'grab' }}>
+    <div style={{ width: '100%', height: '100%', minHeight: '600px', cursor: 'grab', touchAction: 'pan-y' }}>
       <Canvas 
         camera={{ position: [0, 0, 8], fov: 45 }} 
         dpr={[1, 1.5]} 
         gl={{ powerPreference: "high-performance", antialias: false }}
+        style={{ touchAction: 'pan-y' }}
       >
         <React.Suspense fallback={null}>
           <ambientLight intensity={0.6} />
@@ -91,7 +92,14 @@ export default function GlassBottle3D() {
           </Float>
 
           <Environment preset="city" />
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+          <OrbitControls 
+            enableZoom={false} 
+            enablePan={false} 
+            enableRotate={true}
+            autoRotate 
+            autoRotateSpeed={0.5}
+            touches={{ ONE: 0, TWO: 0 } as any} // Disable touch drag — allows page scroll on mobile
+          />
         </React.Suspense>
       </Canvas>
     </div>
