@@ -157,7 +157,25 @@ export default function Hero() {
             exit="exit"
           >
             <motion.span variants={itemVariants} className="hero-subtitle">{slides[activeSlide].subtitle}</motion.span>
-            <motion.h1 variants={itemVariants} className="hero-title">{slides[activeSlide].title}</motion.h1>
+            <motion.h1 variants={itemVariants} className="hero-title">
+              {slides[activeSlide].title.split('').map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 + i * 0.04, ease: [0.25, 1, 0.5, 1] }}
+                  style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.h1>
+            <motion.div 
+              className="hero-title-divider"
+              initial={{ width: 0 }} 
+              animate={{ width: '60px' }} 
+              transition={{ duration: 1.2, delay: 1.2, ease: [0.25, 1, 0.5, 1] }}
+            />
             <motion.p variants={itemVariants} className="hero-desc">{slides[activeSlide].desc}</motion.p>
             <motion.div variants={itemVariants}>
               <Link href={slides[activeSlide].link}>

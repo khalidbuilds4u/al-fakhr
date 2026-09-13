@@ -139,6 +139,13 @@
   font-weight: 300;
 }
 
+.hero-title-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+  margin-bottom: 2rem;
+  align-self: center;
+}
+
 .hero-cta {
   background: transparent;
   color: var(--accent-gold);
@@ -188,9 +195,53 @@
 }
 
 @media (max-width: 767px) {
+  /* SPLIT LAYOUT: Product on top, text panel on bottom */
   .hero-section {
-    align-items: flex-end;
-    padding-bottom: 3rem;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    align-items: stretch;
+    padding-bottom: 0;
+  }
+
+  /* Video takes up the top portion */
+  .hero-background {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    min-height: 300px;
+    flex-shrink: 0;
+  }
+
+  .hero-media {
+    object-fit: cover;
+    object-position: var(--bg-pos-mobile, center);
+    opacity: 1;
+    animation: none;
+  }
+
+  /* No dark overlay on mobile — let the product shine */
+  .hero-overlay.align-left,
+  .hero-overlay.align-right {
+    background: linear-gradient(
+      to top, 
+      rgba(10, 34, 28, 0.7) 0%,
+      transparent 40%
+    );
+  }
+
+  /* Text panel sits below the video */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 1.5rem 3rem;
+    background: linear-gradient(
+      to bottom,
+      var(--background) 0%,
+      rgba(10, 34, 28, 0.97) 100%
+    );
   }
 
   .hero-text-box.align-left,
@@ -198,46 +249,49 @@
     text-align: center;
     align-items: center;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0;
+    max-width: 100%;
   }
-  
-  .hero-overlay.align-left,
-  .hero-overlay.align-right {
-    background: linear-gradient(
-      to top, 
-      rgba(5, 15, 11, 0.92) 0%,
-      rgba(5, 15, 11, 0.5) 35%,
-      rgba(5, 15, 11, 0.1) 60%,
-      transparent 100%
-    );
+
+  .hero-subtitle {
+    letter-spacing: 0.35em;
+    font-size: 0.6rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.85;
   }
 
   .hero-title {
-    font-size: 3rem;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    line-height: 1.05;
   }
 
   .hero-desc {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 1.5rem;
     max-width: 300px;
-    line-height: 1.7;
-  }
-
-  .hero-media {
-    object-fit: cover;
-    object-position: var(--bg-pos-mobile, center);
-    opacity: 1;
-    animation: none; /* Disable ken-burns on mobile, keep it clean */
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.6);
   }
 
   .hero-cta {
     padding: 1rem 2.5rem;
+    animation: cta-glow 3s ease-in-out infinite alternate;
   }
 
-  .hero-subtitle {
-    letter-spacing: 0.3em;
-    font-size: 0.65rem;
-    margin-bottom: 1rem;
+  @keyframes cta-glow {
+    0% {
+      box-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
+    }
+    100% {
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35), 0 0 50px rgba(212, 175, 55, 0.1);
+    }
+  }
+
+  /* Pagination repositioned between video and text */
+  .hero-pagination {
+    bottom: auto;
+    top: calc(55vh - 2rem);
+    z-index: 25;
   }
 }
