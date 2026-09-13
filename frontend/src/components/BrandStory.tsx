@@ -20,15 +20,25 @@ export default function BrandStory() {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none' }}
         >
           {isMobile ? (
-            /* Static image on mobile — saves massive GPU resources */
-            <img 
-              src="/hover_dehn.jpg" 
-              alt="AL-FAKHR Heritage Perfume" 
-              className="story-img"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+            /* Animated image presentation on mobile — lightweight but cinematic */
+            <motion.div
+              className="mobile-heritage-visual"
+              initial={{ opacity: 0, scale: 1.15 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
+            >
+              <img 
+                src="/hover_dehn.jpg" 
+                alt="AL-FAKHR Heritage Perfume" 
+                className="heritage-animated-img"
+              />
+              {/* Gold shimmer light sweep */}
+              <div className="heritage-shimmer"></div>
+              {/* Vignette overlay */}
+              <div className="heritage-vignette"></div>
+            </motion.div>
           ) : (
-            /* Full WebGL 3D on desktop */
             <GlassBottle3D />
           )}
         </div>

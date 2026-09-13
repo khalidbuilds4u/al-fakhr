@@ -117,6 +117,76 @@
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
+/* ===== Mobile Heritage Animated Visual ===== */
+.mobile-heritage-visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heritage-animated-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: heritage-ken-burns 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes heritage-ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    transform: scale(1.15) translate(-3%, -2%);
+  }
+  66% {
+    transform: scale(1.1) translate(2%, -1%);
+  }
+  100% {
+    transform: scale(1.2) translate(-1%, -3%);
+  }
+}
+
+/* Gold light sweep that glides across the image */
+.heritage-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(212, 175, 55, 0.08) 45%,
+    rgba(212, 175, 55, 0.15) 50%,
+    rgba(212, 175, 55, 0.08) 55%,
+    transparent 70%
+  );
+  animation: shimmer-sweep 5s ease-in-out infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* Soft vignette edges */
+.heritage-vignette {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  box-shadow: inset 0 0 80px 30px var(--background);
+  pointer-events: none;
+  z-index: 3;
+}
+
 @media (max-width: 767px) {
   .story-content {
     padding: 3rem 1.5rem;
