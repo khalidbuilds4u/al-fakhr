@@ -7,10 +7,20 @@ import './BrandStory.css';
 
 export default function BrandStory() {
   const [isMobile, setIsMobile] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  
+  const images = [
+    "/hover_dehn.jpg",
+    "/hover_tuscan.jpg"
+  ];
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
   }, []);
+
+  const toggleImage = () => {
+    setImageIndex((prev) => (prev === 0 ? 1 : 0));
+  };
 
   return (
     <section className="brand-story-section">
@@ -27,9 +37,15 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
+              onClick={toggleImage}
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
             >
-              <img 
-                src="/hover_dehn.jpg" 
+              <motion.img 
+                key={imageIndex} /* Key forces a re-render/re-animation when image changes */
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                src={images[imageIndex]} 
                 alt="AL-FAKHR Heritage Perfume" 
                 className="heritage-animated-img"
               />
