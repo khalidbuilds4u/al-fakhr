@@ -16,17 +16,17 @@ function BottleMesh() {
 
   return (
     <group ref={groupRef} position={[0, -1, 0]}>
-      {/* Inner Liquid (Perfume) */}
-      <mesh position={[0, -0.1, 0]}>
+      {/* Inner Liquid (Perfume) - Standard transparency for proper depth sorting behind transmission */}
+      <mesh position={[0, -0.15, 0]}>
         {/* Slightly smaller than the glass, positioned slightly lower to simulate not being completely full */}
-        <boxGeometry args={[2.0, 2.7, 1.0]} />
+        <boxGeometry args={[1.9, 2.6, 0.9]} />
         <meshPhysicalMaterial 
-          color="#8c4a16" // Rich amber / oudh color
-          metalness={0.1}
+          color="#b5651d" // Golden amber / oudh color
+          metalness={0}
           roughness={0.2}
-          transmission={0.4}
-          opacity={1}
-          transparent
+          transparent={true}
+          opacity={0.9}
+          depthWrite={false} // Important for rendering correctly behind the outer glass
         />
       </mesh>
 
@@ -35,13 +35,13 @@ function BottleMesh() {
         <boxGeometry args={[2.2, 3, 1.2]} />
         <meshPhysicalMaterial 
           color="#ffffff"
-          metalness={0.1}
-          roughness={0.05}
+          metalness={0} // Metalness MUST be 0 for pure glass
+          roughness={0.1}
           transmission={1} // Full glass transmission
-          ior={1.5}        // Index of refraction for glass
-          thickness={0.5}  // Volume thickness
+          ior={1.52}       // Index of refraction for standard glass
+          thickness={1.0}  // Volume thickness for refraction
           clearcoat={1}
-          clearcoatRoughness={0.05}
+          clearcoatRoughness={0.1}
           transparent={true}
           opacity={1}
         />
