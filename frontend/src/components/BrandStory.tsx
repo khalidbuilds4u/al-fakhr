@@ -27,17 +27,7 @@ export default function BrandStory() {
       <div className="brand-story-grid">
         <div 
           className="story-image-wrap"
-          onClick={isMobile ? toggleImage : undefined}
-          style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            backgroundColor: 'transparent', 
-            border: 'none',
-            cursor: isMobile ? 'pointer' : 'default'
-          }}
-          role={isMobile ? "button" : undefined}
-          aria-label={isMobile ? "Toggle image" : undefined}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none' }}
         >
           {isMobile ? (
             /* Animated image presentation on mobile — lightweight but cinematic */
@@ -47,13 +37,48 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
-              style={{ width: '100%', height: '100%' }}
+              style={{ position: 'relative', width: '100%', height: '100%' }}
             >
+              {/* True HTML Button spanning the entire container to guarantee clicks on iOS */}
+              <button 
+                onClick={toggleImage}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  zIndex: 50,
+                  opacity: 0,
+                  cursor: 'pointer',
+                  border: 'none',
+                  background: 'transparent',
+                  WebkitTapHighlightColor: 'transparent'
+                }}
+                aria-label="Toggle perfume image"
+              />
+
+              {/* Image 1 (Dehn Al Oudh) */}
               <img 
-                src={images[imageIndex]} 
+                src={images[0]} 
                 alt="AL-FAKHR Heritage Perfume" 
                 className="heritage-animated-img"
-                style={{ transition: 'opacity 0.4s ease-in-out' }}
+                style={{ 
+                  position: 'absolute', inset: 0, 
+                  opacity: imageIndex === 0 ? 1 : 0, 
+                  transition: 'opacity 0.6s ease-in-out' 
+                }}
+              />
+
+              {/* Image 2 (Tuscan Leather) */}
+              <img 
+                src={images[1]} 
+                alt="AL-FAKHR Heritage Perfume" 
+                className="heritage-animated-img"
+                style={{ 
+                  position: 'absolute', inset: 0, 
+                  opacity: imageIndex === 1 ? 1 : 0, 
+                  transition: 'opacity 0.6s ease-in-out' 
+                }}
               />
               
               {/* Gold shimmer light sweep */}
