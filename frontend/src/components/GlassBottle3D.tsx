@@ -16,15 +16,34 @@ function BottleMesh() {
 
   return (
     <group ref={groupRef} position={[0, -1, 0]}>
-      {/* Heavy Obsidian Glass Body (Extremely fast & premium looking) */}
+      {/* Inner Liquid (Perfume) */}
+      <mesh position={[0, -0.1, 0]}>
+        {/* Slightly smaller than the glass, positioned slightly lower to simulate not being completely full */}
+        <boxGeometry args={[2.0, 2.7, 1.0]} />
+        <meshPhysicalMaterial 
+          color="#8c4a16" // Rich amber / oudh color
+          metalness={0.1}
+          roughness={0.2}
+          transmission={0.4}
+          opacity={1}
+          transparent
+        />
+      </mesh>
+
+      {/* Outer Thick Glass Body */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[2.2, 3, 1.2]} />
         <meshPhysicalMaterial 
-          color="#030a08" // Deep dark emerald/obsidian
-          metalness={0.8}
-          roughness={0.1}
+          color="#ffffff"
+          metalness={0.1}
+          roughness={0.05}
+          transmission={1} // Full glass transmission
+          ior={1.5}        // Index of refraction for glass
+          thickness={0.5}  // Volume thickness
           clearcoat={1}
-          clearcoatRoughness={0.1}
+          clearcoatRoughness={0.05}
+          transparent={true}
+          opacity={1}
         />
       </mesh>
 
