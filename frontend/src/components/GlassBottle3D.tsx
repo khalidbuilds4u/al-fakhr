@@ -16,116 +16,92 @@ function BottleMesh() {
 
   return (
     <group ref={groupRef} position={[0, -1, 0]}>
-      {/* Inner Liquid (Perfume) */}
-      <mesh position={[0, -0.15, 0]}>
-        {/* Slightly smaller than the glass, positioned slightly lower to simulate not being completely full */}
-        <boxGeometry args={[2.3, 2.7, 0.8]} />
+      
+      {/* 
+        ROBUST GLASS: 
+        Instead of 'transmission' which fails on some WebGL implementations (rendering as opaque gray), 
+        we use standard transparency with high envMapIntensity and clearcoat. This guarantees it looks like glass everywhere.
+      */}
+      
+      {/* Outer Glass Body */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[2.4, 3.0, 1.0]} />
         <meshPhysicalMaterial 
-          color="#dca838" // Golden amber / Chanel N5 liquid color
-          metalness={0}
-          roughness={0.1}
+          color="#ffffff"
+          metalness={0.1}
+          roughness={0.05}
           transparent={true}
-          opacity={0.9}
-          depthWrite={false}
+          opacity={0.25}       // Low opacity to see the liquid inside
+          envMapIntensity={2}  // High reflection of the environment
+          clearcoat={1}
+          clearcoatRoughness={0.05}
+          depthWrite={true}
+          side={THREE.DoubleSide}
         />
       </mesh>
 
-      {/* Outer Thick Glass Body */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[2.6, 3.1, 1.1]} />
+      {/* Inner Liquid (Perfume) */}
+      <mesh position={[0, -0.15, 0]}>
+        {/* Slightly smaller than the glass */}
+        <boxGeometry args={[2.2, 2.6, 0.8]} />
         <meshPhysicalMaterial 
-          color="#ffffff"
+          color="#dca838"      // Golden amber Chanel N5 liquid
           metalness={0}
-          roughness={0.05}
-          transmission={1}
-          ior={1.52}
-          thickness={1.5}
-          clearcoat={1}
-          clearcoatRoughness={0.05}
+          roughness={0.1}
           transparent={true}
-          opacity={1}
+          opacity={0.85}       // High opacity so it looks like dense liquid
+          depthWrite={false}   // Prevent z-fighting with the outer glass
         />
       </mesh>
 
       {/* The Iconic Square Label */}
-      <group position={[0, -0.1, 0.56]}>
-        {/* Label Background */}
+      {/* Placed EXACTLY on the glass surface (depth 1.0 / 2 = 0.5) + tiny offset to prevent z-fighting */}
+      <group position={[0, -0.1, 0.501]}>
         <mesh>
-          <planeGeometry args={[1.4, 1.4]} />
-          <meshStandardMaterial color="#ebebeb" roughness={0.8} />
+          <planeGeometry args={[1.3, 1.3]} />
+          <meshStandardMaterial color="#fafafa" roughness={0.9} />
         </mesh>
         
-        {/* Branding on Label */}
-        <Text 
-          position={[0, 0.3, 0.01]} 
-          color="#000000" 
-          fontSize={0.12} 
-          anchorX="center" 
-          anchorY="middle"
-        >
+        <Text position={[0, 0.3, 0.001]} color="#000000" fontSize={0.12} anchorX="center" anchorY="middle">
           N° 1
         </Text>
-        <Text 
-          position={[0, 0.05, 0.01]} 
-          color="#000000" 
-          fontSize={0.28} 
-          fontWeight="bold"
-          letterSpacing={0.1}
-          anchorX="center" 
-          anchorY="middle"
-        >
+        <Text position={[0, 0.05, 0.001]} color="#000000" fontSize={0.28} fontWeight="bold" letterSpacing={0.1} anchorX="center" anchorY="middle">
           AL-FAKHR
         </Text>
-        <Text 
-          position={[0, -0.2, 0.01]} 
-          color="#000000" 
-          fontSize={0.1} 
-          letterSpacing={0.1}
-          anchorX="center" 
-          anchorY="middle"
-        >
+        <Text position={[0, -0.2, 0.001]} color="#000000" fontSize={0.1} letterSpacing={0.1} anchorX="center" anchorY="middle">
           DUBAI
         </Text>
-        <Text 
-          position={[0, -0.45, 0.01]} 
-          color="#000000" 
-          fontSize={0.09} 
-          letterSpacing={0.05}
-          anchorX="center" 
-          anchorY="middle"
-        >
+        <Text position={[0, -0.45, 0.001]} color="#000000" fontSize={0.09} letterSpacing={0.05} anchorX="center" anchorY="middle">
           EAU DE PARFUM
         </Text>
       </group>
 
       {/* Neck (Gold banding) */}
-      <mesh position={[0, 1.7, 0]}>
-        <cylinderGeometry args={[0.35, 0.45, 0.3, 32]} />
-        <meshStandardMaterial color="#d4af37" metalness={1} roughness={0.2} />
+      <mesh position={[0, 1.65, 0]}>
+        <cylinderGeometry args={[0.3, 0.4, 0.3, 32]} />
+        <meshStandardMaterial color="#d4af37" metalness={0.8} roughness={0.2} />
       </mesh>
       
-      {/* Upper Neck (White band like Chanel) */}
-      <mesh position={[0, 1.9, 0]}>
-        <cylinderGeometry args={[0.33, 0.33, 0.15, 32]} />
-        <meshStandardMaterial color="#ffffff" metalness={0} roughness={0.5} />
+      {/* Upper Neck (White band) */}
+      <mesh position={[0, 1.85, 0]}>
+        <cylinderGeometry args={[0.28, 0.3, 0.15, 32]} />
+        <meshStandardMaterial color="#fafafa" metalness={0} roughness={0.8} />
       </mesh>
 
       {/* Cap - Wide faceted transparent glass stopper */}
-      <mesh position={[0, 2.35, 0]}>
-        {/* An octagonal flat box simulates the Chanel stopper perfectly */}
-        <cylinderGeometry args={[1.0, 0.9, 0.6, 8]} />
+      <mesh position={[0, 2.2, 0]}>
+        {/* Adjusted position and height to sit flush on the neck */}
+        <cylinderGeometry args={[0.9, 0.8, 0.6, 8]} />
         <meshPhysicalMaterial 
           color="#ffffff"
-          metalness={0}
+          metalness={0.1}
           roughness={0.05}
-          transmission={1}
-          ior={1.52}
-          thickness={1.5}
+          transparent={true}
+          opacity={0.4}
+          envMapIntensity={2}
           clearcoat={1}
           clearcoatRoughness={0.05}
-          transparent={true}
-          opacity={1}
-          flatShading={true} // Emphasizes the facets
+          flatShading={true} 
         />
       </mesh>
     </group>
