@@ -189,8 +189,9 @@
 
 @media (max-width: 767px) {
   .hero-section {
-    align-items: flex-end; /* Push content to bottom so product is visible above */
-    padding-bottom: 4rem;
+    align-items: flex-end;
+    padding-bottom: 3rem;
+    background-color: #050f0b; /* Match the video's dark tones */
   }
 
   .hero-text-box.align-left,
@@ -201,34 +202,62 @@
     padding: 0 1.5rem;
   }
   
-  /* Much lighter overlay so the product visuals show through clearly */
+  /* Very light overlay — only at the bottom for text readability */
   .hero-overlay.align-left,
   .hero-overlay.align-right {
     background: linear-gradient(
       to top, 
-      rgba(10, 34, 28, 0.92) 0%,    /* Solid at the very bottom where text sits */
-      rgba(10, 34, 28, 0.4) 40%,     /* Fades quickly */
-      rgba(10, 34, 28, 0.05) 70%,    /* Nearly transparent in the middle where the product is */
-      rgba(10, 34, 28, 0.15) 100%    /* Slight tint at top */
+      rgba(5, 15, 11, 0.95) 0%,
+      rgba(5, 15, 11, 0.6) 30%,
+      transparent 55%,
+      transparent 100%
     );
   }
 
   .hero-title {
-    font-size: 3.2rem;
+    font-size: 3rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
   }
 
   .hero-desc {
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
-    max-width: 320px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    max-width: 300px;
+    line-height: 1.7;
+  }
+
+  .hero-media-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #050f0b;
   }
 
   .hero-media {
-    object-position: var(--bg-pos-mobile, center);
-    opacity: 1; /* Full opacity on mobile so the product is crystal clear */
+    object-fit: contain; /* Show the FULL video frame — no cropping */
+    object-position: center center;
+    opacity: 1;
+    animation: mobile-hero-breathe 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mobile-hero-breathe {
+    0% {
+      transform: scale(1);
+      filter: brightness(0.9);
+    }
+    100% {
+      transform: scale(1.08);
+      filter: brightness(1.1);
+    }
   }
 
   .hero-cta {
     padding: 1rem 2.5rem;
+  }
+
+  .hero-subtitle {
+    letter-spacing: 0.3em;
+    font-size: 0.65rem;
+    margin-bottom: 1rem;
   }
 }
