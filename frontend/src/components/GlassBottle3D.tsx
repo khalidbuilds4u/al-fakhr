@@ -16,77 +16,119 @@ function BottleMesh() {
 
   return (
     <group ref={groupRef} position={[0, -1, 0]}>
-      {/* Inner Liquid (Perfume) - Standard transparency for proper depth sorting behind transmission */}
+      {/* Inner Liquid (Perfume) */}
       <mesh position={[0, -0.15, 0]}>
         {/* Slightly smaller than the glass, positioned slightly lower to simulate not being completely full */}
-        <boxGeometry args={[1.9, 2.6, 0.9]} />
+        <boxGeometry args={[2.3, 2.7, 0.8]} />
         <meshPhysicalMaterial 
-          color="#b5651d" // Golden amber / oudh color
+          color="#dca838" // Golden amber / Chanel N5 liquid color
           metalness={0}
-          roughness={0.2}
+          roughness={0.1}
           transparent={true}
           opacity={0.9}
-          depthWrite={false} // Important for rendering correctly behind the outer glass
+          depthWrite={false}
         />
       </mesh>
 
       {/* Outer Thick Glass Body */}
       <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[2.2, 3, 1.2]} />
+        <boxGeometry args={[2.6, 3.1, 1.1]} />
         <meshPhysicalMaterial 
           color="#ffffff"
-          metalness={0} // Metalness MUST be 0 for pure glass
-          roughness={0.1}
-          transmission={1} // Full glass transmission
-          ior={1.52}       // Index of refraction for standard glass
-          thickness={1.0}  // Volume thickness for refraction
+          metalness={0}
+          roughness={0.05}
+          transmission={1}
+          ior={1.52}
+          thickness={1.5}
           clearcoat={1}
-          clearcoatRoughness={0.1}
+          clearcoatRoughness={0.05}
           transparent={true}
           opacity={1}
         />
       </mesh>
 
-      {/* Gold Label Branding */}
-      <group position={[0, 0.2, 0.61]}>
-        {/* Main Logo */}
+      {/* The Iconic Square Label */}
+      <group position={[0, -0.1, 0.56]}>
+        {/* Label Background */}
+        <mesh>
+          <planeGeometry args={[1.4, 1.4]} />
+          <meshStandardMaterial color="#ebebeb" roughness={0.8} />
+        </mesh>
+        
+        {/* Branding on Label */}
         <Text 
-          position={[0, 0, 0]} 
-          color="#d4af37" 
-          fontSize={0.35} 
+          position={[0, 0.3, 0.01]} 
+          color="#000000" 
+          fontSize={0.12} 
+          font="https://fonts.gstatic.com/s/playfairdisplay/v29/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff"
+          anchorX="center" 
+          anchorY="middle"
+        >
+          N° 1
+        </Text>
+        <Text 
+          position={[0, 0.05, 0.01]} 
+          color="#000000" 
+          fontSize={0.28} 
+          font="https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNF37cHrQz8.woff" // Clean sans-serif
+          fontWeight="bold"
+          letterSpacing={0.1}
           anchorX="center" 
           anchorY="middle"
         >
           AL-FAKHR
         </Text>
-        {/* Subtitle */}
         <Text 
-          position={[0, -0.4, 0]} 
-          color="#d4af37" 
-          fontSize={0.12} 
-          letterSpacing={0.25}
+          position={[0, -0.2, 0.01]} 
+          color="#000000" 
+          fontSize={0.1} 
+          letterSpacing={0.1}
           anchorX="center" 
           anchorY="middle"
         >
-          EXTRAIT DE PARFUM
+          DUBAI
         </Text>
-        {/* Ornate Divider */}
-        <mesh position={[0, -0.2, 0]}>
-          <boxGeometry args={[0.8, 0.01, 0.01]} />
-          <meshBasicMaterial color="#d4af37" />
-        </mesh>
+        <Text 
+          position={[0, -0.45, 0.01]} 
+          color="#000000" 
+          fontSize={0.09} 
+          letterSpacing={0.05}
+          anchorX="center" 
+          anchorY="middle"
+        >
+          EAU DE PARFUM
+        </Text>
       </group>
 
-      {/* Gold Neck */}
-      <mesh position={[0, 1.75, 0]}>
-        <cylinderGeometry args={[0.3, 0.4, 0.5, 32]} />
-        <meshStandardMaterial color="#d4af37" metalness={1} roughness={0.1} />
+      {/* Neck (Gold banding) */}
+      <mesh position={[0, 1.7, 0]}>
+        <cylinderGeometry args={[0.35, 0.45, 0.3, 32]} />
+        <meshStandardMaterial color="#d4af37" metalness={1} roughness={0.2} />
+      </mesh>
+      
+      {/* Upper Neck (White band like Chanel) */}
+      <mesh position={[0, 1.9, 0]}>
+        <cylinderGeometry args={[0.33, 0.33, 0.15, 32]} />
+        <meshStandardMaterial color="#ffffff" metalness={0} roughness={0.5} />
       </mesh>
 
-      {/* Crystal Cut Gold Cap */}
-      <mesh position={[0, 2.5, 0]}>
-        <icosahedronGeometry args={[0.7, 0]} />
-        <meshStandardMaterial color="#d4af37" metalness={1} roughness={0.15} flatShading />
+      {/* Cap - Wide faceted transparent glass stopper */}
+      <mesh position={[0, 2.35, 0]}>
+        {/* An octagonal flat box simulates the Chanel stopper perfectly */}
+        <cylinderGeometry args={[1.0, 0.9, 0.6, 8]} />
+        <meshPhysicalMaterial 
+          color="#ffffff"
+          metalness={0}
+          roughness={0.05}
+          transmission={1}
+          ior={1.52}
+          thickness={1.5}
+          clearcoat={1}
+          clearcoatRoughness={0.05}
+          transparent={true}
+          opacity={1}
+          flatShading={true} // Emphasizes the facets
+        />
       </mesh>
     </group>
   );
