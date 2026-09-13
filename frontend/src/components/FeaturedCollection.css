@@ -133,19 +133,30 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.product-card:hover .hover-ad-state,
+/* JS explicit active state (works on all devices) */
 .product-card.mobile-hover-active .hover-ad-state {
   opacity: 1;
 }
-
-.product-card:hover .hover-img-bg,
 .product-card.mobile-hover-active .hover-img-bg {
   transform: scale(1.05);
 }
-
-.product-card:hover .hover-ad-overlay,
 .product-card.mobile-hover-active .hover-ad-overlay {
   transform: translateY(0);
+}
+
+/* Native hover state only on Desktop (prevents sticky hover bug on mobile iOS) */
+@media (min-width: 992px) {
+  .product-card:hover .hover-ad-state {
+    opacity: 1;
+  }
+  
+  .product-card:hover .hover-img-bg {
+    transform: scale(1.05);
+  }
+  
+  .product-card:hover .hover-ad-overlay {
+    transform: translateY(0);
+  }
 }
 
 .product-info {

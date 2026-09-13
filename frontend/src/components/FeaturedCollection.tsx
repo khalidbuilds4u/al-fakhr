@@ -41,10 +41,7 @@ function TiltCard({ product, index, addToCart }: any) {
   };
 
   const toggleMobileHover = () => {
-    // Only apply explicit toggle behavior on touch devices
-    if (window.matchMedia("(hover: none)").matches) {
-      setIsMobileHovered(!isMobileHovered);
-    }
+    setIsMobileHovered(!isMobileHovered);
   };
 
   return (
