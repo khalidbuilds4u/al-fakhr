@@ -17,7 +17,7 @@ const slides = [
     mediaSrc: "/cleaned_Golden_attar_oil_falling_from_20260912200842.mp4",
     align: "left",
     bgPosition: "center", // The video is naturally right-heavy on desktop
-    bgPositionMobile: "center bottom" // Show the bottle at the bottom of the frame
+    bgPositionMobile: "70% 80%" // Bottle is in right-center, lower portion of the frame
   },
   {
     id: 1,
@@ -29,7 +29,7 @@ const slides = [
     mediaSrc: "/cleaned_Perfume_bottle_spraying_mist_1080p_20260912204130.mp4",
     align: "right",
     bgPosition: "20% center", // Shifts the bottle to the left side of the screen on desktop
-    bgPositionMobile: "center center" // Center the spray in the frame
+    bgPositionMobile: "20% 70%" // Bottle is on the left side, lower portion of the frame
   }
 ];
 
