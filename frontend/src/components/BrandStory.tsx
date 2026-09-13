@@ -27,45 +27,41 @@ export default function BrandStory() {
       <div className="brand-story-grid">
         <div 
           className="story-image-wrap"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none' }}
+          style={{ 
+            display: 'flex', 
+            alignItems: 'stretch', 
+            justifyContent: 'center', 
+            backgroundColor: 'transparent', 
+            border: 'none',
+            minHeight: isMobile ? '400px' : 'auto'
+          }}
         >
           {isMobile ? (
-            /* Animated image presentation on mobile — lightweight but cinematic */
-            <motion.div
-              className="mobile-heritage-visual"
-              initial={{ opacity: 0, scale: 1.15 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
-              style={{ position: 'relative', width: '100%', height: '100%' }}
+            /* ULTIMATE FOOLPROOF CLICK CONTAINER */
+            <div
+              onClick={toggleImage}
+              style={{ 
+                position: 'relative', 
+                width: '100%', 
+                minHeight: '400px',
+                cursor: 'pointer',
+                overflow: 'hidden'
+              }}
+              role="button"
+              aria-label="Toggle perfume image"
             >
-              {/* True HTML Button spanning the entire container to guarantee clicks on iOS */}
-              <button 
-                onClick={toggleImage}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  zIndex: 50,
-                  opacity: 0,
-                  cursor: 'pointer',
-                  border: 'none',
-                  background: 'transparent',
-                  WebkitTapHighlightColor: 'transparent'
-                }}
-                aria-label="Toggle perfume image"
-              />
-
               {/* Image 1 (Dehn Al Oudh) */}
               <img 
                 src={images[0]} 
                 alt="AL-FAKHR Heritage Perfume" 
-                className="heritage-animated-img"
                 style={{ 
-                  position: 'absolute', inset: 0, 
+                  position: 'absolute', 
+                  top: 0, left: 0, 
+                  width: '100%', height: '100%', 
+                  objectFit: 'cover',
                   opacity: imageIndex === 0 ? 1 : 0, 
-                  transition: 'opacity 0.6s ease-in-out' 
+                  transition: 'opacity 0.6s ease-in-out',
+                  pointerEvents: 'none' /* Images CANNOT steal the click */
                 }}
               />
 
@@ -73,19 +69,22 @@ export default function BrandStory() {
               <img 
                 src={images[1]} 
                 alt="AL-FAKHR Heritage Perfume" 
-                className="heritage-animated-img"
                 style={{ 
-                  position: 'absolute', inset: 0, 
+                  position: 'absolute', 
+                  top: 0, left: 0, 
+                  width: '100%', height: '100%', 
+                  objectFit: 'cover',
                   opacity: imageIndex === 1 ? 1 : 0, 
-                  transition: 'opacity 0.6s ease-in-out' 
+                  transition: 'opacity 0.6s ease-in-out',
+                  pointerEvents: 'none' /* Images CANNOT steal the click */
                 }}
               />
               
               {/* Gold shimmer light sweep */}
-              <div className="heritage-shimmer"></div>
+              <div className="heritage-shimmer" style={{ pointerEvents: 'none' }}></div>
               {/* Vignette overlay */}
-              <div className="heritage-vignette"></div>
-            </motion.div>
+              <div className="heritage-vignette" style={{ pointerEvents: 'none' }}></div>
+            </div>
           ) : (
             <GlassBottle3D />
           )}
