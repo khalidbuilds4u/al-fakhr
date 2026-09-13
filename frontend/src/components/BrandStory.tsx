@@ -37,29 +37,19 @@ export default function BrandStory() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
-              style={{ position: 'relative' }}
             >
-              {/* Invisible clickable overlay to capture all taps reliably */}
-              <div 
-                onClick={toggleImage} 
-                style={{ position: 'absolute', inset: 0, zIndex: 10, cursor: 'pointer' }}
-                aria-label="Toggle Image"
-                role="button"
+              <img 
+                src={images[imageIndex]} 
+                alt="AL-FAKHR Heritage Perfume" 
+                className="heritage-animated-img"
+                onClick={toggleImage}
+                style={{ 
+                  cursor: 'pointer', 
+                  transition: 'opacity 0.4s ease-in-out',
+                  position: 'relative',
+                  zIndex: 10 /* Ensure image itself catches clicks above shimmer/vignette */
+                }}
               />
-              
-              <AnimatePresence mode="wait">
-                <motion.img 
-                  key={imageIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  src={images[imageIndex]} 
-                  alt="AL-FAKHR Heritage Perfume" 
-                  className="heritage-animated-img"
-                  style={{ position: 'absolute', top: 0, left: 0 }}
-                />
-              </AnimatePresence>
               
               {/* Gold shimmer light sweep */}
               <div className="heritage-shimmer"></div>
