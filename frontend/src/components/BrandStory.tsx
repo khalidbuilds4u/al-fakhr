@@ -27,52 +27,40 @@ export default function BrandStory() {
       <div className="brand-story-grid">
         <div 
           className="story-image-wrap"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none' }}
+          onClick={isMobile ? toggleImage : undefined}
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            backgroundColor: 'transparent', 
+            border: 'none',
+            cursor: isMobile ? 'pointer' : 'default'
+          }}
+          role={isMobile ? "button" : undefined}
+          aria-label={isMobile ? "Toggle image" : undefined}
         >
           {isMobile ? (
             /* Animated image presentation on mobile — lightweight but cinematic */
-            <div
-              className="mobile-heritage-visual-wrapper"
-              style={{ position: 'relative', width: '100%', height: '100%' }}
+            <motion.div
+              className="mobile-heritage-visual"
+              initial={{ opacity: 0, scale: 1.15 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
+              style={{ width: '100%', height: '100%' }}
             >
-              {/* Stationary invisible button overlay guarantees click capture */}
-              <button 
-                onClick={toggleImage}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  zIndex: 50,
-                  opacity: 0,
-                  cursor: 'pointer',
-                  border: 'none',
-                  background: 'transparent'
-                }}
-                aria-label="Toggle perfume image"
+              <img 
+                src={images[imageIndex]} 
+                alt="AL-FAKHR Heritage Perfume" 
+                className="heritage-animated-img"
+                style={{ transition: 'opacity 0.4s ease-in-out' }}
               />
-
-              <motion.div
-                className="mobile-heritage-visual"
-                initial={{ opacity: 0, scale: 1.15 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 1.8, ease: [0.25, 1, 0.5, 1] }}
-                style={{ width: '100%', height: '100%' }}
-              >
-                <img 
-                  src={images[imageIndex]} 
-                  alt="AL-FAKHR Heritage Perfume" 
-                  className="heritage-animated-img"
-                  style={{ transition: 'opacity 0.4s ease-in-out' }}
-                />
-                
-                {/* Gold shimmer light sweep */}
-                <div className="heritage-shimmer"></div>
-                {/* Vignette overlay */}
-                <div className="heritage-vignette"></div>
-              </motion.div>
-            </div>
+              
+              {/* Gold shimmer light sweep */}
+              <div className="heritage-shimmer"></div>
+              {/* Vignette overlay */}
+              <div className="heritage-vignette"></div>
+            </motion.div>
           ) : (
             <GlassBottle3D />
           )}
