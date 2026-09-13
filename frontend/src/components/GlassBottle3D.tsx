@@ -60,7 +60,6 @@ function BottleMesh() {
           position={[0, 0.3, 0.01]} 
           color="#000000" 
           fontSize={0.12} 
-          font="https://fonts.gstatic.com/s/playfairdisplay/v29/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff"
           anchorX="center" 
           anchorY="middle"
         >
@@ -70,7 +69,6 @@ function BottleMesh() {
           position={[0, 0.05, 0.01]} 
           color="#000000" 
           fontSize={0.28} 
-          font="https://fonts.gstatic.com/s/montserrat/v25/JTUHjIg1_i6t8kCHKm4532VJOt5-QNF37cHrQz8.woff" // Clean sans-serif
           fontWeight="bold"
           letterSpacing={0.1}
           anchorX="center" 
