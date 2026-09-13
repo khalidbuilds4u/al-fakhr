@@ -38,7 +38,9 @@ const ScentParticles = () => {
   const [particles, setParticles] = useState<{ id: number; left: string; delay: number; duration: number; size: number }[]>([]);
 
   useEffect(() => {
-    const newParticles = Array.from({ length: 40 }).map((_, i) => ({
+    const isMobile = window.innerWidth < 768;
+    const count = isMobile ? 12 : 40; // Much fewer particles on mobile
+    const newParticles = Array.from({ length: count }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       delay: Math.random() * 5,

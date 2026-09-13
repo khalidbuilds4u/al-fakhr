@@ -1,11 +1,17 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GlassBottle3D from './GlassBottle3D';
 import './BrandStory.css';
 
 export default function BrandStory() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   return (
     <section className="brand-story-section">
       <div className="brand-story-grid">
@@ -13,8 +19,18 @@ export default function BrandStory() {
           className="story-image-wrap"
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent', border: 'none' }}
         >
-          {/* True WebGL 3D Abstract Bottle Scene */}
-          <GlassBottle3D />
+          {isMobile ? (
+            /* Static image on mobile — saves massive GPU resources */
+            <img 
+              src="/hover_dehn.jpg" 
+              alt="AL-FAKHR Heritage Perfume" 
+              className="story-img"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            /* Full WebGL 3D on desktop */
+            <GlassBottle3D />
+          )}
         </div>
         
         <div className="story-content">
